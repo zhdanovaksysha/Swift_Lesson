@@ -9,6 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    enum Films: String {
+        case film1 = "Человек паук"
+        case film2 = "Алладин"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +32,25 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     @IBAction func showAlertSheet(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: "Choose film", preferredStyle: .actionSheet)
         
+        let handler : (_ type: Films) -> (UIAlertAction) -> Void = { type in
+        {action in
+            print(type.rawValue)
+            }
+            
+        }
+        
+        let cencelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cencelAction)
+        
+        let film1 = UIAlertAction(title: "Человек паук", style: .default, handler: handler(.film1))
+        alert.addAction(film1)
+        
+        let film2 = UIAlertAction(title: "Алладин", style: .default, handler: handler(.film2))
+        alert.addAction(film2)
+        
+         present(alert, animated: true, completion: nil)
     }
     
 }
